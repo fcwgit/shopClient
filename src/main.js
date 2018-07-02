@@ -8,8 +8,9 @@ import router from './router'
 
 // Vue.use(Vant)
 
-import {Button} from 'vant'
-Vue.use(Button)
+// 按需引入
+import {Button,Row,Col} from 'vant'
+Vue.use(Button).use(Row).use(Col)
 
 Vue.config.productionTip = false
 
