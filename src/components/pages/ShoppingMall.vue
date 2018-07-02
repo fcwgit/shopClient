@@ -34,11 +34,22 @@
         <div>
             <img v-lazy="adBanner" width="100%"/>
         </div>
+        <!-- Recommend goods area -->
+        <div class="recommend-area">
+            <div class="recommend-title">
+                商品推荐
+            </div>
+            <div class="recommend-body">
+
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     import axios from 'axios'
+    import 'swiper/dist/css/swiper.css'
+    import {swiper , swiperSlide} from 'vue-awesome-swiper'
     export default {
         data() {
             return {
@@ -120,5 +131,15 @@
     .type-bar div:first-child{
         width: 22rem;
         /* height: 22rem; */
+    }
+    .recommend-area{
+        background-color: #fff;
+        margin-top: .3rem;
+    }
+    .recommend-title{
+        border-bottom: 1px solid #eee;
+        font-size: 14px;
+        padding: .2rem;
+        color: #e5017d;
     }
 </style>

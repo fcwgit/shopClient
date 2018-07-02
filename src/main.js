@@ -5,12 +5,13 @@ import App from './App'
 import router from './router'
 // import Vant from 'vant'
 // import 'vant/lib/vant-css/index.css'
-
+import VueAwesomeSwipe from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
 // Vue.use(Vant)
 
 // 按需引入
 import {Button,Row,Col,Swipe,SwipeItem,Lazyload} from 'vant'
-Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload)
+Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(VueAwesomeSwipe)
 
 Vue.config.productionTip = false
 
