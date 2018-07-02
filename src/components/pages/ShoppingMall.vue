@@ -19,26 +19,58 @@
             <van-swipe :autoplay="1000">
                 <van-swipe-item v-for="(banner,index) in bannerPicArray" :key="index">
                     <!-- <img :src="banner.imageUrl" width="100%"/> -->
-                    <img v-lazy="banner.imageUrl" width="100%"/>
+                    <img v-lazy="banner.image" width="100%"/>
                 </van-swipe-item>
             </van-swipe>
+        </div>
+        <!-- type bar -->
+        <div class="type-bar">
+            <div v-for="(cate,index) in category" :key="index">
+                <img v-lazy="cate.image" width="90%">
+                <span>{{cate.mallCategoryName}}</span>
+            </div>
+        </div>
+        <!-- adBanner area -->
+        <div>
+            <img v-lazy="adBanner" width="100%"/>
         </div>
     </div>
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
         data() {
             return {
                 msg: 'Shopping Mall',
                 locationIcon:require('../../assets/images/location.png'),
-                bannerPicArray:[
-                    {imageUrl:require('../../assets/images/simleVueDemoPic001.jpg')},
-                    {imageUrl:require('../../assets/images/simleVueDemoPic002.jpg')},
-                    {imageUrl:require('../../assets/images/simleVueDemoPic003.jpg')}
-                ]
+                // bannerPicArray:[
+                //     {image:require('../../assets/images/simleVueDemoPic001.jpg')},
+                //     {image:require('../../assets/images/simleVueDemoPic002.jpg')},
+                //     {image:require('../../assets/images/simleVueDemoPic003.jpg')}
+                // ],
+                bannerPicArray:[],
+                category:[],
+                adBanner:''
             }
         },
+        created(){
+            axios({
+                url:'https://www.easy-mock.com/mock/5b39d9e06dc2313b1904db10/shop/index',
+                method:'get',
+            })
+            .then(response=>{
+                console.log(response);
+                if(response.status==200){
+                    this.category=response.data.data.category;
+                    this.adBanner=response.data.data.advertesPicture.PICTURE_ADDRESS;
+                    this.bannerPicArray=response.data.data.slides;
+                }
+            })
+            .catch(error=>{
+                console.log(error);
+            })
+        }
     }
 </script>
 
@@ -70,5 +102,23 @@
         clear: both;
         max-height: 15rem;
         overflow: hidden;
+    }
+    .type-bar{
+        background-color: #fff;
+        margin: 0 .3rem .3rem .3rem;
+        border-radius: .3rem;
+        font-size: 14px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    .type-bar div{
+        padding: .3rem;
+        font-size: 12px;
+        text-align: center;
+    }
+    .type-bar div:first-child{
+        width: 22rem;
+        /* height: 22rem; */
     }
 </style>
