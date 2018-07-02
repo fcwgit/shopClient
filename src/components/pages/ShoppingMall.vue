@@ -14,7 +14,15 @@
                 </van-col>
             </van-row>
         </div>
-        
+        <!-- Swipe area -->
+        <div class="swipe-area">
+            <van-swipe :autoplay="1000">
+                <van-swipe-item v-for="(banner,index) in bannerPicArray" :key="index">
+                    <!-- <img :src="banner.imageUrl" width="100%"/> -->
+                    <img v-lazy="banner.imageUrl" width="100%"/>
+                </van-swipe-item>
+            </van-swipe>
+        </div>
     </div>
 </template>
 
@@ -23,7 +31,12 @@
         data() {
             return {
                 msg: 'Shopping Mall',
-                locationIcon:require('../../assets/images/location.png')
+                locationIcon:require('../../assets/images/location.png'),
+                bannerPicArray:[
+                    {imageUrl:require('../../assets/images/simleVueDemoPic001.jpg')},
+                    {imageUrl:require('../../assets/images/simleVueDemoPic002.jpg')},
+                    {imageUrl:require('../../assets/images/simleVueDemoPic003.jpg')}
+                ]
             }
         },
     }
@@ -34,6 +47,7 @@
         height: 2.2rem;
         background-color: #e5017d;
         line-height: 2.2rem;
+        overflow: hidden;
     }
     .search-input{
         width: 100%;
@@ -51,5 +65,10 @@
     }
     .search-button{
         margin-left: .5rem;
+    }
+    .swipe-area{
+        clear: both;
+        max-height: 15rem;
+        overflow: hidden;
     }
 </style>
