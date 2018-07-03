@@ -45,7 +45,7 @@
                         <div class="recommend-item">
                             <img :src="item.image" width="80%">
                             <div>{{item.goodsName}}</div>
-                            <div>￥{{item.price}}(￥{{item.mallPrice}})</div>
+                            <div>￥{{item.price | moneyFilter}}(￥{{item.mallPrice | moneyFilter}})</div>
                         </div>
                     </swiper-slide>
                 </swiper>
@@ -58,7 +58,21 @@
         <floorComponent :floorData="floor1" :floorTitle="floorName.floor1"></floorComponent>
         <floorComponent :floorData="floor2" :floorTitle="floorName.floor2"></floorComponent>
         <floorComponent :floorData="floor3" :floorTitle="floorName.floor3"></floorComponent>
-        
+        <!-- Hot area -->
+        <div class="hot-area">
+            <div class="hot-title">
+                热卖商品
+            </div>
+            <div class="hot-goods">
+                <van-list>
+                    <van-row gutter="20">
+                        <van-col span="12" v-for="(item,index) in hotGoods" :key="index">
+                            <div>{{item.name}}</div>
+                        </van-col>
+                    </van-row>
+                </van-list>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -71,6 +85,7 @@
     // import swiperDefault3 from '../swiper/swiperDefault3';
     // import swiperText from '../swiper/swiperText';
     import floorComponent from '../component/floorComponent';
+    import { toMoney } from '@/components/filter/moneyFilter.js';
     export default {
         data() {
             return {
@@ -91,11 +106,17 @@
                 floor1:[],
                 floor2:[],
                 floor3:[],
-                floorName:{}
+                floorName:{},
+                hotGoods:[],
             }
         },
         // components:{swiper,swiperSlide,swiperDefault,swiperDefault2,swiperDefault3,swiperText},
         components:{swiper,swiperSlide,floorComponent},
+        filters:{
+            moneyFilter(money){
+                return toMoney(money);
+            }
+        },
         created(){
             axios({
                 url:'https://www.easy-mock.com/mock/5b39d9e06dc2313b1904db10/shop/index',
@@ -112,6 +133,7 @@
                     this.floor2=response.data.data.floor2;
                     this.floor3=response.data.data.floor3;
                     this.floorName=response.data.data.floorName;
+                    this.hotGoods=response.data.data.hotGoods;
                 }
             })
             .catch(error=>{
@@ -187,6 +209,12 @@
         border-right: 1px solid #eee;
         font-size: 12px;
         text-align: center;
+    }
+    .hot-area{
+        text-align: center;
+        font-size: 14px;
+        height: 1.8rem;
+        line-height: 1.8rem;
     }
     
 </style>
