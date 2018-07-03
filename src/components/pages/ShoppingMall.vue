@@ -40,9 +40,23 @@
                 商品推荐
             </div>
             <div class="recommend-body">
-
+                <swiper :options="swipeOption">
+                    <swiper-slide v-for="(item,index) in recommendGoods" :key="index">
+                        <div class="recommend-item">
+                            <img :src="item.image" width="80%">
+                            <div>{{item.goodsName}}</div>
+                            <div>￥{{item.price}}(￥{{item.mallPrice}})</div>
+                        </div>
+                    </swiper-slide>
+                </swiper>
             </div>
         </div>
+        <!-- <swiperDefault></swiperDefault>
+        <swiperDefault2></swiperDefault2>
+        <swiperDefault3></swiperDefault3>
+        <swiperText></swiperText> -->
+        <floorComponent :floorData="floor1"></floorComponent>
+        
     </div>
 </template>
 
@@ -50,6 +64,11 @@
     import axios from 'axios'
     import 'swiper/dist/css/swiper.css'
     import {swiper , swiperSlide} from 'vue-awesome-swiper'
+    // import swiperDefault from '../swiper/swiperDefault';
+    // import swiperDefault2 from '../swiper/swiperDefault2';
+    // import swiperDefault3 from '../swiper/swiperDefault3';
+    // import swiperText from '../swiper/swiperText';
+    import floorComponent from '../component/floorComponent';
     export default {
         data() {
             return {
@@ -62,9 +81,16 @@
                 // ],
                 bannerPicArray:[],
                 category:[],
-                adBanner:''
+                adBanner:'',
+                recommendGoods:[],
+                swipeOption:{
+                    slidesPerView:3
+                },
+                floor1:[],
             }
         },
+        // components:{swiper,swiperSlide,swiperDefault,swiperDefault2,swiperDefault3,swiperText},
+        components:{swiper,swiperSlide,floorComponent},
         created(){
             axios({
                 url:'https://www.easy-mock.com/mock/5b39d9e06dc2313b1904db10/shop/index',
@@ -76,12 +102,15 @@
                     this.category=response.data.data.category;
                     this.adBanner=response.data.data.advertesPicture.PICTURE_ADDRESS;
                     this.bannerPicArray=response.data.data.slides;
+                    this.recommendGoods=response.data.data.recommend;
+                    this.floor1=response.data.data.floor1;
                 }
             })
             .catch(error=>{
                 console.log(error);
             })
-        }
+        },
+        
     }
 </script>
 
@@ -142,4 +171,14 @@
         padding: .2rem;
         color: #e5017d;
     }
+    .recommend-body{
+        border-bottom: 1px solid #eee;
+    }
+    .recommend-item{
+        width: 99%;
+        border-right: 1px solid #eee;
+        font-size: 12px;
+        text-align: center;
+    }
+    
 </style>
