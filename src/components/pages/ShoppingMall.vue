@@ -67,7 +67,8 @@
                 <van-list>
                     <van-row gutter="20">
                         <van-col span="12" v-for="(item,index) in hotGoods" :key="index">
-                            <div>{{item.name}}</div>
+                            <!-- <div>{{item.name}}</div> -->
+                            <goodsInfoComponent :goodsName="item.name" :goodsPrice="item.price" :goodsImage="item.image"></goodsInfoComponent>
                         </van-col>
                     </van-row>
                 </van-list>
@@ -85,7 +86,8 @@
     // import swiperDefault3 from '../swiper/swiperDefault3';
     // import swiperText from '../swiper/swiperText';
     import floorComponent from '../component/floorComponent';
-    import { toMoney } from '@/components/filter/moneyFilter.js';
+    import { toMoney } from '@/filter/moneyFilter.js';
+    import goodsInfoComponent from '../component/goodsInfoComponent';
     export default {
         data() {
             return {
@@ -111,7 +113,7 @@
             }
         },
         // components:{swiper,swiperSlide,swiperDefault,swiperDefault2,swiperDefault3,swiperText},
-        components:{swiper,swiperSlide,floorComponent},
+        components:{swiper,swiperSlide,floorComponent,goodsInfoComponent},
         filters:{
             moneyFilter(money){
                 return toMoney(money);
